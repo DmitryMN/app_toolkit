@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { useAppSelector } from './hooks/redux';
 import { useAppDispatch } from './hooks/redux';
-import { userSlice } from './store/reducers/UserSlice';
+import { fetchUsers } from './store/reducers/ActionCreators';
 
 function App() {
-  const count = useAppSelector(state => state.userReducer.count);
+  const {users, isLoading, error} = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
 
   return (
     <div className="App">
-      <div>count {count}</div>
-      <button>+</button>
+      <div>
+        {isLoading && <h1>Идет загрузка...</h1>}
+        {error && <div>{error}</div>}
+        {users && users.map(user => <div key={user.id}>{user.name}</div>)}
+      </div>
     </div>
   );
 }
