@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
+import PostContainer from './components/PostContainer';
 import { useAppSelector } from './hooks/redux';
 import { useAppDispatch } from './hooks/redux';
 import { fetchUsers } from './store/reducers/ActionCreators';
@@ -14,11 +15,12 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      {/* <div>
         {isLoading && <h1>Идет загрузка...</h1>}
         {error && <div>{error}</div>}
         {users && users.map(user => <div key={user.id}>{user.name}</div>)}
-      </div>
+      </div> */}
+      <PostContainer />
     </div>
   );
 }
